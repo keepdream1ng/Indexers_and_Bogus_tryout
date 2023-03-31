@@ -9,11 +9,24 @@ namespace Indexers_and_Bogus_tryout_app
         static void Main(string[] args)
         {
             Department Sales = new Department("Sales");
-            Sales.AddEmployee("Caren", "Trouble");
-            Sales.AddEmployee("Chad", "Power");
-            Sales.AddEmployee("Leroy", "Jankins");
+
+            // Creating an instance of a class to get access to a functions
+            var faker = new Faker();
+            Randomizer.Seed = new Random(123);
+
+            // Generating fake employees.
+            for (int i = 1; i < 50; i++)
+            {
+                Sales.AddEmployee(faker.Name.FirstName(), faker.Name.LastName());
+            }
+
             Console.WriteLine(Sales.Employees.Count);
-            Console.WriteLine(Sales["Chad Power"].Id);
+            Console.WriteLine(Sales.Employees[3].FullName);
+            //Department Sales = new Department("Sales");
+            //Sales.AddEmployee("Caren", "Trouble");
+            //Sales.AddEmployee("Chad", "Power");
+            //Sales.AddEmployee("Leroy", "Jankins");
+            //Console.WriteLine(Sales["Chad Power"].Id);
         }
     }
 
