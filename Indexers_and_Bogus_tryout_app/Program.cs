@@ -15,18 +15,18 @@ namespace Indexers_and_Bogus_tryout_app
             Randomizer.Seed = new Random(123);
 
             // Generating fake employees.
-            for (int i = 1; i < 50; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Sales.AddEmployee(faker.Name.FirstName(), faker.Name.LastName());
             }
 
-            Console.WriteLine(Sales.Employees.Count);
-            Console.WriteLine(Sales.Employees[3].FullName);
-            //Department Sales = new Department("Sales");
-            //Sales.AddEmployee("Caren", "Trouble");
-            //Sales.AddEmployee("Chad", "Power");
-            //Sales.AddEmployee("Leroy", "Jankins");
-            //Console.WriteLine(Sales["Chad Power"].Id);
+            //Console.WriteLine(Sales.Employees.Count);
+            //Console.WriteLine(Sales.Employees[3].FullName);
+            Console.WriteLine(string.Join("\n", Sales.Employees));
+
+            // The Indexers by string and int work.
+            Console.WriteLine("\n" + Sales["Nico Nienow"].Id);
+            Console.WriteLine(Sales[12].FullName);
         }
     }
 
@@ -57,6 +57,18 @@ namespace Indexers_and_Bogus_tryout_app
                 return null;
             }
         }
+
+        public Employee this[int Id]
+        {
+            get
+            {
+                foreach (Employee emp in Employees)
+                {
+                    if (emp.Id == Id) return emp;
+                }
+                return null;
+            }
+        }
         
     }
 
@@ -73,6 +85,11 @@ namespace Indexers_and_Bogus_tryout_app
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.Id = _count++;
-        } 
+        }
+
+        public override string ToString()
+        {
+            return FullName;
+        }
     }
 }
